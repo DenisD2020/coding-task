@@ -57,21 +57,20 @@ public class MaximumTwinSumLinkedList {
     public int pairSum(ListNode head) {
         List<Integer> list = toList(head, new ArrayList<>());
         int max = 0;
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size() / 2; i++) {
             int indexTwin = list.size() - 1 - i;
-            if (indexTwin >= 0 && indexTwin <= list.size() / 2 - 1) {
-                max = Math.max(max, list.get(i) + list.get(indexTwin));
-            }
+            max = Math.max(max, list.get(i) + list.get(indexTwin));
         }
         return max;
     }
 
     private List<Integer> toList(ListNode head, List<Integer> result) {
-        result.add(head.val);
-        if (head.next == null) {
-            return result;
+        var _head = head;
+        while (_head != null) {
+            result.add(_head.val);
+            _head = _head.next;
         }
-        return toList(head.next, result);
+        return result;
     }
 
     static class ListNode {
