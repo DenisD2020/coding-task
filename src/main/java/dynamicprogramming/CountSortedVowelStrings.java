@@ -36,17 +36,27 @@ public class CountSortedVowelStrings {
     char vowels[] = new char[]{'a', 'e', 'i', 'o', 'u'};
 
     public static void main(String[] args) {
-        System.out.println(new CountSortedVowelStrings().countVowelStrings(1));
+        System.out.println(new CountSortedVowelStrings().countVowelStrings(1)); // 5
+        System.out.println(new CountSortedVowelStrings().countVowelStrings(2)); // 15
+        System.out.println(new CountSortedVowelStrings().countVowelStrings(3)); // 66045
     }
 
+
     public int countVowelStrings(int n) {
-        for (int i = 0; i < 5; i++) {
+        int a = 1;
+        int e = 1;
+        int i = 1;
+        int o = 1;
+        int u = 1;
 
-
-
-
+        for (int index = 1; index < n; index++) {
+            a = a + e + i + o + u;
+            e = e + i + o + u;
+            i = i + o + u;
+            o = o + u;
+            u = u;
         }
-        return 0;
+        return a + e + i + o + u;
     }
 
 
