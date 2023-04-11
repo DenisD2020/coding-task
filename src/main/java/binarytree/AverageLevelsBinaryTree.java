@@ -1,9 +1,7 @@
 package binarytree;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static binarytree.Helper.formTree;
 
@@ -31,23 +29,20 @@ import static binarytree.Helper.formTree;
  * -231 <= Node.val <= 231 - 1
  */
 public class AverageLevelsBinaryTree {
-    double[] res = new double[100];
-
-    Map<Integer, List<Integer>> answerMap = new HashMap<>();
+    List<Integer> count = new ArrayList<>();
+    List<Long> summ = new ArrayList<>();
 
     public static void main(String[] args) {
-        System.out.println(new AverageLevelsBinaryTree().averageOfLevels(formTree(new Integer[]{3, 9, 20, 15, 7}))); // [3, 14.5, 11]
-        System.out.println(new AverageLevelsBinaryTree().averageOfLevels(formTree(new Integer[]{3, 9, 20, null, null, 15, 7}))); // [3, 14.5, 11]
+        //System.out.println(new AverageLevelsBinaryTree().averageOfLevels(formTree(new Integer[]{3, 9, 20, 15, 7}))); // [3, 14.5, 11]
+        //System.out.println(new AverageLevelsBinaryTree().averageOfLevels(formTree(new Integer[]{3, 9, 20, null, null, 15, 7}))); // [3, 14.5, 11]
+        System.out.println(new AverageLevelsBinaryTree().averageOfLevels(formTree(new Integer[]{2147483647,2147483647,2147483647})));
     }
 
     public List<Double> averageOfLevels(TreeNode root) {
         calculate(root, 0);
-        List<Double> answer = new ArrayList<>();
-        for (Integer key : answerMap.keySet()) {
-            answer.add(answerMap.get(key).stream()
-                    .mapToDouble(a -> a)
-                    .average()
-                    .getAsDouble());
+        var answer = new ArrayList<Double>();
+        for (int i = 0; i < summ.size(); i++) {
+            answer.add(((double) summ.get(i) / count.get(i)));
         }
         return answer;
     }
@@ -56,9 +51,13 @@ public class AverageLevelsBinaryTree {
         if (root == null) {
             return;
         }
-        List<Integer> values = answerMap.getOrDefault(level, new ArrayList<>());
-        values.add(root.val);
-        answerMap.put(level, values);
+        if (summ.size() <= level) {
+            summ.add((long) root.val);
+            count.add(1);
+        } else {
+            summ.set(level, summ.get(level) + root.val);
+            count.set(level, count.get(level) + 1);
+        }
 
         calculate(root.left, level + 1);
         calculate(root.right, level + 1);
