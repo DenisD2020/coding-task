@@ -37,14 +37,21 @@ import static binarytree.Helper.formTree;
  */
 public class SearchBinarySearchTree {
     public static void main(String[] args) {
-        System.out.println(new SearchBinarySearchTree().searchBST(formTree(new Integer[]{2, 1, 3, null, null, 0, 1}), 5)); // [2,1,3]
-        System.out.println(new SearchBinarySearchTree().searchBST(formTree(new Integer[]{2, 1, 3, null, null, 0, 1}), 5)); // null
+        System.out.println(new SearchBinarySearchTree().searchBST(formTree(new Integer[]{4, 2, 7, 1, 3}), 2)); // [2,1,3]
+        System.out.println(new SearchBinarySearchTree().searchBST(formTree(new Integer[]{4, 2, 7, 1, 3}), 5)); // null
     }
 
     public TreeNode searchBST(TreeNode root, int val) {
 
+        if (root != null) {
+            if (root.val == val) {
+                return root;
+            } else if (root.val > val) {
+                return searchBST(root.left, val);
+            } else if (root.val < val) {
+                return searchBST(root.right, val);
+            }
+        }
         return null;
-
     }
-
 }
