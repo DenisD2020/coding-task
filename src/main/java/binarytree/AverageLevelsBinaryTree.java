@@ -33,8 +33,8 @@ public class AverageLevelsBinaryTree {
     List<Long> summ = new ArrayList<>();
 
     public static void main(String[] args) {
-        //System.out.println(new AverageLevelsBinaryTree().averageOfLevels(formTree(new Integer[]{3, 9, 20, 15, 7}))); // [3, 14.5, 11]
-        //System.out.println(new AverageLevelsBinaryTree().averageOfLevels(formTree(new Integer[]{3, 9, 20, null, null, 15, 7}))); // [3, 14.5, 11]
+        System.out.println(new AverageLevelsBinaryTree().averageOfLevels(formTree(new Integer[]{3, 9, 20, 15, 7}))); // [3, 14.5, 11]
+        System.out.println(new AverageLevelsBinaryTree().averageOfLevels(formTree(new Integer[]{3, 9, 20, null, null, 15, 7}))); // [3, 14.5, 11]
         System.out.println(new AverageLevelsBinaryTree().averageOfLevels(formTree(new Integer[]{2147483647,2147483647,2147483647})));
     }
 
