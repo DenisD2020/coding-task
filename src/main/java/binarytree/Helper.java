@@ -3,6 +3,7 @@ package binarytree;
 public class Helper {
 
     public static TreeNode formTree(Integer[] data) {
+        if (data == null || data.length == 0) return null;
         TreeNode root = new TreeNode(data[0]);
         form(root, 0, data);
         return root;

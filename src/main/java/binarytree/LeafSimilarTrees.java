@@ -10,9 +10,6 @@ import static binarytree.Helper.formTree;
  */
 public class LeafSimilarTrees {
 
-    List<Integer> r1 = new ArrayList<>();
-    List<Integer> r2 = new ArrayList<>();
-
     public static void main(String[] args) {
         System.out.println(new LeafSimilarTrees().leafSimilar(formTree(new Integer[]{3, 5, 1, 6, 2, 9, 8, null, null, 7, 4}),
                 formTree(new Integer[]{3, 5, 1, 6, 7, 4, 2, null, null, null, null, null, null, 9, 8}))); // true
@@ -23,29 +20,27 @@ public class LeafSimilarTrees {
     }
 
     public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        List<Integer> r1 = new ArrayList<>();
+        List<Integer> r2 = new ArrayList<>();
+
+        find(root1, r1);
+        find(root2, r2);
 
         if (root1 == null && root2 == null) {
             return true;
         }
-
-
-        if (root1 != null) {
-            if (isLeaf(root1)) {
-                r1.add(root1.val);
-            }
-            leafSimilar(root1.left, root2.left);
-        }
-
-        if (root2 != null) {
-            if (isLeaf(root2)) {
-                r2.add(root2.val);
-                leafSimilar(root2.left, root2.right);
-            }
-        }
         return r1.equals(r2);
     }
 
-    private boolean isLeaf(TreeNode root) {
-        return root.left == null && root.right == null;
+    private void find(TreeNode root, List<Integer> r) {
+        if (root == null) {
+            return;
+        }
+        if (root.left == null && root.right == null) {
+            r.add(root.val);
+        } else {
+            find(root.left, r);
+            find(root.right, r);
+        }
     }
 }

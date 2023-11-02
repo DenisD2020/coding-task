@@ -1,7 +1,7 @@
 package string;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeSet;
 
 /**
@@ -19,44 +19,41 @@ import java.util.TreeSet;
  */
 public class LexicographicallySmallestEquivalentString {
     public static void main(String[] args) {
-//        System.out.println(new LexicographicallySmallestEquivalentString().smallestEquivalentString("parker", "morris", "parser")); // makkek
-//        System.out.println(new LexicographicallySmallestEquivalentString().smallestEquivalentString("hello", "world", "hold")); // hdld
-//        System.out.println(new LexicographicallySmallestEquivalentString().smallestEquivalentString("leetcode", "programs", "sourcecode")); // aauaaaaada
-        System.out.println(new LexicographicallySmallestEquivalentString().smallestEquivalentString("cgokcgerolkgksgbhgmaaealacnsshofjinidiigbjerdnkolc",
-                "rjjlkbmnprkslilqmbnlasardrossiogrcboomrbcmgmglsrsj",
-                "bxbwjlbdazfejdsaacsjgrlxqhiddwaeguxhqoupicyzfeupcn")); // axawaaaaazaaaaaaaaaaaaaxaaaaawaaauxaaauaaayzaauaaa
+        System.out.println(new LexicographicallySmallestEquivalentString().smallestEquivalentString("parker", "morris", "parser")); // makkek
+        System.out.println(new LexicographicallySmallestEquivalentString().smallestEquivalentString("hello", "world", "hold")); // hdld
+        System.out.println(new LexicographicallySmallestEquivalentString().smallestEquivalentString("leetcode", "programs", "sourcecode")); // aauaaaaada
     }
 
     public String smallestEquivalentString(String s1, String s2, String baseStr) {
-        Set<TreeSet<Character>> graph = new HashSet<>();
+        Map<Character, TreeSet<Character>> map = new HashMap<>();
         for (int i = 0; i < s1.length(); i++) {
             char c1 = s1.charAt(i);
             char c2 = s2.charAt(i);
-            TreeSet<Character> found = null;
-            for (TreeSet<Character> s : graph) {
-                if (s.contains(c1) || s.contains(c2)) {
-                    found = s;
-                    break;
-                }
+            boolean c1Present = map.get(c1) != null;
+            boolean c2Present = map.get(c2) != null;
+
+            if (c1Present && c2Present) {
+                map.get(c1).addAll(map.get(c2));
+                map.get(c2).forEach(m -> map.put(m, map.get(c1)));
+            } else if (c1Present) {
+                map.get(c1).add(c2);
+                map.put(c2, map.get(c1));
+            } else if (c2Present) {
+                map.get(c2).add(c1);
+                map.put(c1, map.get(c2));
+            } else {
+                TreeSet<Character> set = new TreeSet<>();
+                set.add(c1);
+                set.add(c2);
+                map.put(c1, set);
+                map.put(c2, set);
             }
-            if (found == null) {
-                found = new TreeSet<>();
-                graph.add(found);
-            }
-            found.add(c1);
-            found.add(c2);
         }
 
         StringBuilder ans = new StringBuilder(baseStr.length());
         for (int i = 0; i < baseStr.length(); i++) {
             char c = baseStr.charAt(i);
-            TreeSet found = null;
-            for (TreeSet<Character> s : graph) {
-                if (s.contains(c)) {
-                    found = s;
-                    break;
-                }
-            }
+            TreeSet<Character> found = map.get(c);
             if (found != null) {
                 ans.append(found.first());
             } else {
