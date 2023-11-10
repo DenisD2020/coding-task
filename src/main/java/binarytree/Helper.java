@@ -1,28 +1,39 @@
 package binarytree;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Helper {
 
-    public static TreeNode formTree(Integer[] data) {
-        if (data == null || data.length == 0) return null;
-        TreeNode root = new TreeNode(data[0]);
-        form(root, 0, data);
-        return root;
-    }
-
-    private static TreeNode form(TreeNode root, int rootIndex, Integer[] data) {
-        int n = data.length;
-
-        int leftIndex = 2 * rootIndex + 1;
-        if (leftIndex < n && data[leftIndex] != null) {
-            root.left = new TreeNode(data[leftIndex]);
-            form(root.left, leftIndex, data);
+    public static TreeNode formTree(Integer[] array) {
+        if (array == null || array.length == 0) {
+            return null;
         }
 
-        int rightIndex = 2 * rootIndex + 2;
-        if (rightIndex < n && data[rightIndex] != null) {
-            root.right = new TreeNode(data[rightIndex]);
-            form(root.right, rightIndex, data);
+        Queue<TreeNode> treeNodeQueue = new LinkedList<>();
+        Queue<Integer> integerQueue = new LinkedList<>();
+        for (int i = 1; i < array.length; i++) {
+            integerQueue.offer(array[i]);
         }
-        return root;
+
+        TreeNode treeNode = new TreeNode(array[0]);
+        treeNodeQueue.offer(treeNode);
+
+        while (!integerQueue.isEmpty()) {
+            Integer leftVal = integerQueue.isEmpty() ? null : integerQueue.poll();
+            Integer rightVal = integerQueue.isEmpty() ? null : integerQueue.poll();
+            TreeNode current = treeNodeQueue.poll();
+            if (leftVal != null) {
+                TreeNode left = new TreeNode(leftVal);
+                current.left = left;
+                treeNodeQueue.offer(left);
+            }
+            if (rightVal != null) {
+                TreeNode right = new TreeNode(rightVal);
+                current.right = right;
+                treeNodeQueue.offer(right);
+            }
+        }
+        return treeNode;
     }
 }

@@ -16,4 +16,10 @@ public class ListNode {
         this.val = val;
         this.next = next;
     }
+
+    @Override
+    public String toString() {
+        var s = next != null ? next.toString() : "";
+        return val + " " + s;
+    }
 }

@@ -16,7 +16,6 @@ public class ConstructSmallestNumberFromDIString {
     // IDD 1432
     // IDDD 15432
     // IIDDD 126543
-
     // DDIDDIID 321654798
 
 
