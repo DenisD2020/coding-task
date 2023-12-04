@@ -1,4 +1,4 @@
-package string;
+package backtracking;
 
 /**
  * https://leetcode.com/problems/construct-smallest-number-from-di-string/description/

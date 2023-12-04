@@ -24,7 +24,7 @@ public class Info {
 
     //Preorder Traversal without recursion
     public void traversePreOrderWithoutRecursion(TreeNode root) {
-        Stack<TreeNode> stack = new Stack<TreeNode>();
+        Stack<TreeNode> stack = new Stack<>(); // A stack follows a LIFO (Last In First Out) order
         TreeNode current = root;
         stack.push(root);
         while(!stack.isEmpty()) {
