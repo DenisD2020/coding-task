@@ -11,7 +11,7 @@ public class BacktrackingExample2 {
 
     public List<List<Integer>> subsetsWithTargetSum(int[] nums, int targetSum) {
         List<List<Integer>> result = new ArrayList<>();
-        backtrack(nums, targetSum, 0, new ArrayList<Integer>(), result);
+        backtrack(nums, targetSum, 0, new ArrayList<>(), result);
         return result;
     }
 

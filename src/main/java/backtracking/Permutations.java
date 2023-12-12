@@ -22,6 +22,7 @@ public class Permutations {
     private List<List<Integer>> backTracking(ArrayList<List<Integer>> ans, ArrayList<Integer> temp, int[] nums, int[] track) {
         if (temp.size() == nums.length) {
             ans.add(new ArrayList<>(temp));
+            return ans;
         }
         for (int i = 0; i < nums.length; i++) {
             if (track[i] == 0) {

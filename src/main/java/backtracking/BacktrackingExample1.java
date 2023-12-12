@@ -3,6 +3,11 @@ package backtracking;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * examples
+ * https://cs.lmu.edu/~ray/notes/backtracking/
+ * https://www.geeksforgeeks.org/introduction-to-backtracking-data-structure-and-algorithm-tutorials/?ref=hackernoon.com
+ */
 public class BacktrackingExample1 {
 
     public static void main(String[] args) {
