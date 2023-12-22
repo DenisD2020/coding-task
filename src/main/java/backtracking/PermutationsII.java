@@ -18,10 +18,10 @@ public class PermutationsII {
     public List<List<Integer>> permuteUnique(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         HashMap<Integer, Integer> map = new HashMap<>();
-        for (Integer i : nums) {
-            map.putIfAbsent(i, 0);
-            map.put(i, map.get(i) + 1);
-        }
+            for (Integer i : nums) {
+                map.putIfAbsent(i, 0);
+                map.put(i, map.get(i) + 1);
+            }
         backTracking(res, map, new ArrayList<>(), nums.length);
         return res;
     }

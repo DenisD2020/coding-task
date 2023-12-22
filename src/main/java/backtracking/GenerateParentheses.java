@@ -14,25 +14,27 @@ public class GenerateParentheses {
     }
 
     public List<String> generateParenthesis(int n) {
-        ArrayList<String> ans = new ArrayList<>();
-        generate(n, ans, new StringBuilder(), new int[n * 2]);
+        List<String> ans = new ArrayList<>();
+        generate(n, ans, new StringBuilder(), 0, 0);
         return ans;
-
     }
 
-    private void generate(int n, ArrayList<String> ans, StringBuilder sb, int[] track) {
-        if (sb.length() == n * 2) {
+    private void generate(int n, List<String> ans, StringBuilder sb, int open, int close) {
+        if (n == close) {
             ans.add(sb.toString());
-            System.out.println(sb);
             return;
         }
 
-        for (int i = 0 ; i < n * 2 ; i ++) {
-
-
-
-
+        if (open < n) {
+            sb.append("(");
+            generate(n, ans, sb, open + 1, close);
+            sb.setLength(sb.length() - 1);
         }
 
+        if (close < open) {
+            sb.append(")");
+            generate(n, ans, sb, open , close + 1);
+            sb.setLength(sb.length() - 1);
+        }
     }
 }

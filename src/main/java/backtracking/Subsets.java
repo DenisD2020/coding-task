@@ -1,5 +1,7 @@
 package backtracking;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,21 +15,20 @@ public class Subsets {
         System.out.println(new Subsets().subsets(new int[]{0})); // [[],[0]]
     }
 
+
     public List<List<Integer>> subsets(int[] nums) {
         ArrayList<List<Integer>> ans = new ArrayList<>();
-        backTracking(nums, ans, new ArrayList(), 0);
+        backTrack(nums, ans, new ArrayList<Integer>(), 0);
         return ans;
+
     }
 
-    private void backTracking(int[] nums, List<List<Integer>> ans, List<Integer> temp, int index) {
-        ans.add(new ArrayList<>(temp));
-        if (temp.size() == nums.length) {
-            return;
-        }
-        for (int i = index; i < nums.length; i++) {
-            temp.add(nums[i]);
-            backTracking(nums, ans, temp, i + 1);
-            temp.remove(temp.size() - 1);
+    private void backTrack(int[] nums, ArrayList<List<Integer>> ans, ArrayList<Integer> list, int index) {
+        ans.add(new ArrayList<>(list));
+        for(int i = index ; i < nums.length; i ++) {
+            list.add(nums[i]);
+            backTrack(nums, ans, list, i + 1);
+            list.remove(list.size() - 1);
         }
     }
 }
