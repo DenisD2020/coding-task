@@ -23,18 +23,14 @@ public class AssignCookies {
 
     public int findContentChildren(int[] g, int[] s) {
         int res = 0, gg = 0 , ss = 0;
-
         Arrays.sort(g);
         Arrays.sort(s);
-
         while (gg < g.length && ss < s.length) {
             if (g[gg] <= s[ss]) {
                 res++;
                 gg++;
-                ss++;
-            } else {
-                ss++;
             }
+            ss++;
         }
         return res;
     }
