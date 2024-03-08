@@ -1,34 +1,46 @@
 package backtracking;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * https://leetcode.com/problems/fair-distribution-of-cookies/description/
  */
 public class FairDistributionOfCookies { // TODO
 
     public static void main(String[] args) {
-        System.out.println(new FairDistributionOfCookies().distributeCookies(new int[]{8, 15, 10, 20, 8}, 2));
-//        System.out.println(new FairDistributionOfCookies().distributeCookies(new int[]{6, 1, 3, 2, 2, 4, 1, 2}, 3));
+        System.out.println(new FairDistributionOfCookies().distributeCookies(new int[]{8, 15, 10, 20, 8}, 2)); // 31
+//        System.out.println(new FairDistributionOfCookies().distributeCookies(new int[]{6, 1, 3, 2, 2, 4, 1, 2}, 3)); // 7
     }
 
     public int distributeCookies(int[] cookies, int k) {
-        List<List<Integer>> ans = new ArrayList<>();
-        solve(cookies, k, ans, new ArrayList<>(), new int[cookies.length], 0);
-        return -1;
+        return dfs(cookies, new int[k], k, 0, 0);
     }
 
-    private void solve(int[] cookies, int k, List<List<Integer>> ans, List<List<Integer>> temp, int[] track, int index) {
-        if (temp.size() == k) {
+    private int dfs(int[] cookies, int[] distribute, int k, int kk, int distributed) {
 
+        if (k - distributed > cookies.length -  kk) {
+            return Integer.MAX_VALUE;
+        }
+
+        if (kk == cookies.length) {
+            int unf = -1;
+            for (int item : distribute) {
+                unf = Math.max(unf, item);
+            }
+            return unf;
         }
 
 
-
-        for (int i = 0 ; i < cookies.length; i++ ){
-
+        int ans = Integer.MAX_VALUE;
+        for (int i = 0; i < k; i++) {
+            if (distribute[i] == 0) {
+                distributed++;
+            }
+            distribute[i] += cookies[kk];
+            ans = Math.min(ans, dfs(cookies, distribute, k, kk + 1, distributed));
+            distribute[i] -= cookies[kk];
+            if (distribute[i] == 0) {
+                distributed--;
+            }
         }
-
+        return ans;
     }
 }

@@ -1,5 +1,7 @@
 package twopointers;
 
+import linkedlist.Helper;
+
 import java.util.HashSet;
 
 /**

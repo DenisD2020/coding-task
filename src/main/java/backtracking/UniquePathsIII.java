@@ -22,7 +22,14 @@ public class UniquePathsIII { // TODO
         })); // 0
     }
 
+    int ans = 0;
+
     public int uniquePathsIII(int[][] grid) {
+/*        if (){
+            ans++;
+        }*/
+
+
 
         return -1;
     }

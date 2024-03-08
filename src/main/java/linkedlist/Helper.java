@@ -1,4 +1,6 @@
-package twopointers;
+package linkedlist;
+
+import twopointers.ListNode;
 
 public class Helper {
 
