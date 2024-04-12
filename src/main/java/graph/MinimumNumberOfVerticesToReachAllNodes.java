@@ -1,7 +1,9 @@
 package graph;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/
@@ -27,9 +29,10 @@ public class MinimumNumberOfVerticesToReachAllNodes {
             nodes[edge.get(1)] = 1;
         }
 
-        for(int i =0; i < nodes.length; i++){
+        for (int i = 0; i < nodes.length; i++) {
             if (nodes[i] == 0) ans.add(i);
         }
         return ans;
     }
+
 }
