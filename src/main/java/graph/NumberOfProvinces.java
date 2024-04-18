@@ -1,6 +1,9 @@
 package graph;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 /**
  * https://leetcode.com/problems/number-of-provinces/
@@ -8,6 +11,9 @@ import java.util.*;
 public class NumberOfProvinces {
 
     public static void main(String[] args) {
+        System.out.println(new NumberOfProvinces().findCircleNum(new int[][]{
+                {1, 0, 0, 1}, {0, 1, 1, 0}, {0, 1, 1, 1}, {1, 0, 1, 1}
+        })); // 1
         System.out.println(new NumberOfProvinces().findCircleNum(new int[][]{
                 {1, 1, 0},
                 {1, 1, 0},
@@ -18,41 +24,37 @@ public class NumberOfProvinces {
                 {0, 1, 0},
                 {0, 0, 1}
         })); // 3
-        System.out.println(new NumberOfProvinces().findCircleNum(new int[][]{
-                {1, 0, 0, 1}, {0, 1, 1, 0}, {0, 1, 1, 1}, {1, 0, 1, 1}
-        })); // 1
     }
 
     public int findCircleNum(int[][] isConnected) {
         List<List<Integer>> adj = new ArrayList<>();
 
         for (int i = 0; i < isConnected.length; i++) {
-            adj.add(new ArrayList<>());
+            ArrayList<Integer> comp = new ArrayList<>();
+            adj.add(comp);
             for (int j = 0; j < isConnected[i].length; j++) {
-                if (isConnected[i][j] == 1 && i != j) {
-                    adj.get(i).add(j);
+                if (i == j || isConnected[i][j] == 0) continue;
+                comp.add(j);
+            }
+        }
+        int ans = 0;
+        Queue<Integer> q = new LinkedList<>();
+        int[] visited = new int[isConnected.length];
+
+        for (int i = 0; i < isConnected.length; i++) {
+            if (visited[i] == 1) continue;
+            ans++;
+            q.add(i);
+            visited[i] = 1;
+            while (!q.isEmpty()) {
+                Integer component = q.poll();
+                for (Integer connection : adj.get(component)) {
+                    if (visited[connection] == 1) continue;
+                    q.add(connection);
+                    visited[connection] = 1;
                 }
             }
         }
-
-        int connection = 0;
-        // bfs
-        Queue<Integer> bfs = new LinkedList<>();
-        Set<Integer> visited = new HashSet<>();
-        for (int i = 0; i < adj.size(); i++) {
-            if (!visited.add(i)) continue;
-            bfs.add(i);
-            connection++;
-
-            while (!bfs.isEmpty()) {
-                Integer component = bfs.poll();
-                List<Integer> connections = adj.get(component);
-                for (Integer con : connections) {
-                    if (!visited.add(con)) continue;
-                    bfs.add(con);
-                }
-            }
-        }
-        return connection;
+        return ans;
     }
 }
