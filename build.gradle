@@ -12,6 +12,11 @@ plugins {
     id 'application'
 }
 
+group 'by.rudenko.dv.java'
+version '1.0'
+
+sourceCompatibility = '21'
+
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
@@ -22,12 +27,4 @@ dependencies {
     implementation 'com.google.guava:guava:31.0.1-jre'
 }
 
-testing {
-    suites {
-        // Configure the built-in test suite
-        test {
-            // Use JUnit Jupiter test framework
-            useJUnitJupiter('5.8.2')
-        }
-    }
-}
+
