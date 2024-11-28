@@ -15,7 +15,7 @@ public class LongestPalindromicSubstring {
 
     String ans = "";
 
-    public String longestPalindrome(String s) { // 36.65%
+    public String longestPalindrome(String s) { // 88.62%
 
         if (s.length() == 1) return s;
 
@@ -27,11 +27,13 @@ public class LongestPalindromicSubstring {
         return ans;
     }
 
-    private boolean isPalindrome(String s, int l, int r) {
-        if (l < 0 || r >= s.length()) return false;
-        if (s.charAt(l) != s.charAt(r)) return false;
-        String substring = s.substring(l, r + 1);
-        if (ans.length() < substring.length()) ans = substring;
-        return isPalindrome(s, l - 1, r + 1);
+    private void isPalindrome(String s, int l, int r) {
+        while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
+            l--;
+            r++;
+        }
+        if ((r - l) > ans.length()) {
+            ans = s.substring(l + 1, r);
+        }
     }
 }
