@@ -25,9 +25,6 @@ public class UniquePathsIII { // TODO
     int ans = 0;
 
     public int uniquePathsIII(int[][] grid) {
-/*        if (){
-            ans++;
-        }*/
 
 
 

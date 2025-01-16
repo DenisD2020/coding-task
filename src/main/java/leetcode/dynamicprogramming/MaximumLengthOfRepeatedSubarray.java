@@ -11,18 +11,18 @@ public class MaximumLengthOfRepeatedSubarray {
     }
 
     int[][] dp;
+    int ans = 0;
 
     public int findLength(int[] nums1, int[] nums2) {
-        dp = new int[nums1.length][nums2.length];
-
-        for (int i = 0; i < nums1.length; i++) {
-            for (int j = 0; j < nums2.length; j++) {
-                if (nums1[i] == nums2[j]) {
-                    dp[i][j] = 1;
+        dp = new int[nums1.length + 1][nums2.length + 1];
+        for (int i = 1; i <= nums1.length; i++) {
+            for (int j = 1; j <= nums2.length; j++) {
+                if (nums1[i - 1] == nums2[j - 1]) {
+                    dp[i][j] = Math.max(1, dp[i - 1][j - 1] + 1);
+                    ans = Math.max(dp[i][j], ans);
                 }
             }
         }
-
-        return 0;
+        return ans;
     }
 }
