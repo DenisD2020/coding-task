@@ -19,7 +19,25 @@ public class MinimumPathSum {
         })); // 12
     }
 
-    public int minPathSum(int[][] grid) {
+    public int minPathSum(int[][] grid) { // 63.16%
+        int rowLength = grid.length - 1;
+        int colLength = grid[0].length - 1;
+        for (int m = 0; m <= rowLength; m++) {
+            for (int n = 0; n <= colLength; n++) {
+                if (m == 0 && n == 0) {
+                } else if (n == 0) {
+                    grid[m][n] += grid[m - 1][n];
+                } else if (m == 0) {
+                    grid[m][n] += grid[m][n - 1];
+                } else {
+                    grid[m][n] += Math.min(grid[m - 1][n], grid[m][n - 1]);
+                }
+            }
+        }
+        return grid[rowLength][colLength];
+    }
+
+    /*public int minPathSum(int[][] grid) {
         // i x j
         int m = grid.length;
         int n = grid[0].length;
@@ -39,7 +57,7 @@ public class MinimumPathSum {
             }
         }
         return grid[m - 1][n - 1];
-    }
+    }*/
 
 /*    int ans = Integer.MAX_VALUE;
 
