@@ -6,12 +6,10 @@ package leetcode.dynamicprogramming;
 public class StoneGameII {
 
     public static void main(String[] args) {
-//        System.out.println(new StoneGameII().stoneGameII(new int[]{2, 7, 9, 4, 4})); // 2 + 4 + 4 = 10
-//        System.out.println(new StoneGameII().stoneGameII(new int[]{1, 2, 3, 4, 5, 100})); // 104
-//
-//
-//        System.out.println(new StoneGameII().stoneGameII_2(new int[]{2, 7, 9, 4, 4})); // 2 + 4 + 4 = 10
-//        System.out.println(new StoneGameII().stoneGameII_3(new int[]{2, 7, 9, 4, 4})); // 2 + 4 + 4 = 10
+//        System.out.println(new StoneGameII().stoneGameII_6(new int[]{2, 7, 9, 4, 4})); // 2 + 4 + 4 = 10
+//        System.out.println(new StoneGameII().stoneGameII_6(new int[]{1, 2, 3, 4, 5, 100})); // 104
+//        System.out.println(new StoneGameII().stoneGameII_6(new int[]{2, 7, 9, 4, 4})); // 2 + 4 + 4 = 10
+//        System.out.println(new StoneGameII().stoneGameII_6(new int[]{2, 7, 9, 4, 4})); // 2 + 4 + 4 = 10
         System.out.println(new StoneGameII().stoneGameII_5(new int[]{2, 7, 9, 4, 4})); // 2 + 4 + 4 = 10
     }
 
