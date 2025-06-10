@@ -31,6 +31,23 @@ public class GasStation {
         return start;
     }
 
+    public int canCompleteCircuit2(int[] gas, int[] cost) {
+        int n = gas.length;
+        int totalGasLeft = 0;
+        int currentGas = 0;
+        int start = 0;
+
+        for(int i = 0; i < n; i++){
+            totalGasLeft += gas[i] - cost[i];
+            currentGas += gas[i] - cost[i];
+            if(currentGas < 0){
+                currentGas = 0;
+                start = i + 1;
+            }
+        }
+        return (totalGasLeft < 0) ? -1 : start;
+    }
+
 /*    public int canCompleteCircuit(int[] gas, int[] cost) { // Time Limit Exceeded
         int ans = -1;
         for (int start = 0; start < gas.length; start++) {

@@ -13,21 +13,28 @@ import java.util.List;
 public class ThreeSum {
 
     public static void main(String[] args) {
-        System.out.println(new ThreeSum().threeSum(new int[]{0, 0, 0, 0})); // [[0,0,0]]
-        System.out.println(new ThreeSum().threeSum(new int[]{-1, 0, 1, 2, -1, -4})); // [[-1,-1,2],[-1,0,1]]
-        System.out.println(new ThreeSum().threeSum(new int[]{0, 1, 1})); // []
-        System.out.println(new ThreeSum().threeSum(new int[]{0, 0, 0})); // [[0,0,0]]
+//        System.out.println(new ThreeSum().threeSum(new int[]{0, 0, 0, 0})); // [[0,0,0]]
+//        System.out.println(new ThreeSum().threeSum(new int[]{-1, 0, 1, 2, -1, -4})); // [[-1,-1,2],[-1,0,1]]
+//        System.out.println(new ThreeSum().threeSum(new int[]{0, 1, 1})); // []
+//        System.out.println(new ThreeSum().threeSum(new int[]{0, 0, 0})); // [[0,0,0]]
+//        System.out.println(new ThreeSum().threeSum(new int[]{2, -3, 0, -2, -5, -5, -4, 1, 2, -2, 2, 0, 2, -4, 5, 5, -10})); // [[-10,5,5],[-5,0,5],[-4,2,2],[-3,-2,5],[-3,1,2],[-2,0,2]]
+        // [-10, -5, -5, -4, -4, -3, -2, -2, 0, 0, 1, 2, 2, 2, 2, 5, 5]
+        System.out.println(new ThreeSum().threeSum(new int[]{-1,0,1,2,-1,-4,-2,-3,3,0,4})); // [[-4,0,4],[-4,1,3],[-3,-1,4],[-3,0,3],[-3,1,2],[-2,-1,3],[-2,0,2],[-1,-1,2],[-1,0,1]]
+        // [-4, -3, -2, -1, -1, 0, 0, 1, 2, 3, 4]
     }
 
-    public List<List<Integer>> threeSum(int[] nums) {
+    public List<List<Integer>> threeSum(int[] nums) { // 26.36%
+
         List<List<Integer>> ans = new ArrayList<>();
 
         Arrays.sort(nums);
 
-        for (int i = 0; i < nums.length - 2; i++) {
+        int length = nums.length;
+
+        for (int i = 0; i < length - 2; i++) {
 
             int left = i + 1;
-            int right = nums.length - 1;
+            int right = length - 1;
 
             if (i > 0 && nums[i] == nums[i - 1]) continue;
 
@@ -37,18 +44,17 @@ public class ThreeSum {
 
                 if (currSum == 0) {
                     ans.add(List.of(nums[i], nums[left], nums[right]));
-
-                    while (nums[left] == nums[right-1] && left < right) {
-                        left++;
-                    }
                 }
 
                 if (currSum < 0) {
-                    left++;
+                    do {
+                        left++;
+                    } while (left < right && left - 1 != i && nums[left - 1] == nums[left]);
                 } else {
-                    right--;
+                    do {
+                        right--;
+                    } while (right > left && right != length - 1 && nums[right + 1] == nums[right]);
                 }
-
             }
         }
         return ans;

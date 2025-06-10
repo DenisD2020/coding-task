@@ -24,7 +24,7 @@ public class IntegerToRoman {
 
             while (num >= values[i]) {
                 sb.append(symbols[i]);
-                num-= values[i];
+                num -= values[i];
             }
         }
         return sb.toString();
