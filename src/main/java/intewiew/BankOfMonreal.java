@@ -1,8 +1,6 @@
 package intewiew;
 
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * public static List<Integer> processArray(int[] input)
@@ -24,30 +22,79 @@ public class BankOfMonreal {
 
     public static void main(String[] args) {
         System.out.println(BankOfMonreal.processArray(new int[]{-1, -2, -3, 2})); // -1, -3
+        System.out.println(BankOfMonreal.processArray(new int[]{0, -1, 1, -2, 3, 2, -5})); // -2, -5
+        // Expected [-2, -5]
+        System.out.println(BankOfMonreal.processArray(new int[]{-1, -2, -3, -1, -2, -3, -1, -2, -3, -1, -2, -3, -1, -2, -3, -5, 1, 1, 1})); // -1, -2, -3, -1, -2, -3, -1, -2, -3, -1, -2, -3, -5
+         // Expected[-1, -2, -3, -1, -2, -3, -1, -2, -3, -1, -2, -3, -5]
+
+        int[] bigInput = new int[1_000_000];
+        for (int i = 0; i < bigInput.length; i++) {
+            if (i % 2 == 0) {
+                bigInput[i] = -i;
+            } else {
+                bigInput[i] = (i % 100) + 1;
+            }
+        }
+
+        long startTime = System.currentTimeMillis();
+        List<Integer> result = processArray(bigInput);
+        long endTime = System.currentTimeMillis();
+
+        System.out.println("Result size: " + result.size());
+        System.out.println("Time taken: " + (endTime - startTime) + " ms");
     }
 
     public static List<Integer> processArray(int[] input) {
-        int initialCapacity = input.length / 3;
-        List<Integer> tmp = new ArrayList<>(initialCapacity);
-        BitSet removeIndices = new BitSet(initialCapacity);
+        int[] tempArray = new int[input.length / 2];
+        int size = 0;
 
         for (int num : input) {
             if (num < 0) {
-                tmp.add(num);
-            } else if (num > 0 && !tmp.isEmpty()) {
-                int index = num - 1;
-                if (index < tmp.size()) {
-                    removeIndices.set(index);
+                if (size == tempArray.length) {
+                    int[] newArray = new int[tempArray.length * 2];
+                    System.arraycopy(tempArray, 0, newArray, 0, size);
+                    tempArray = newArray;
+                }
+                tempArray[size++] = num;
+            } else if (num > 0) {
+                int indexToRemove = num - 1;
+                if (indexToRemove < size) {
+                    System.arraycopy(
+                            tempArray,
+                            indexToRemove + 1,
+                            tempArray,
+                            indexToRemove,
+                            size - indexToRemove - 1
+                    );
+                    size--;
                 }
             }
         }
 
-        List<Integer> result = new ArrayList<>(tmp.size() - removeIndices.cardinality());
-        for (int i = 0; i < tmp.size(); i++) {
-            if (!removeIndices.get(i)) {
-                result.add(tmp.get(i));
+        List<Integer> result = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            result.add(tempArray[i]);
+        }
+
+        return result;
+    }
+
+    public static List<Integer> processArray2(int[] input) {
+        Deque<Integer> deque = new ArrayDeque<>();
+
+        for (int value : input) {
+            if (value < 0) {
+                deque.add(value);
+            } else if (value > 0) {
+                if (value - 1 < deque.size()) {
+                    List<Integer> tempList = new ArrayList<>(deque);
+                    tempList.remove(value - 1);
+                    deque.clear();
+                    deque.addAll(tempList);
+                }
             }
         }
-        return result;
+
+        return new ArrayList<>(deque);
     }
 }
