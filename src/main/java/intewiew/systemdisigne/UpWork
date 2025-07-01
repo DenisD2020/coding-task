@@ -1,0 +1,7 @@
+Design a new service that will provide a $100 Amazon Gift Card to freelancers once they've worked for the first 100 hours.
+Background: when freelancers are working on Upwork, they can bill clients for the number of hours worked. Hours can be added manually
+via the Work Diary or automatically via the Upwork Time Tracker app. Either way, the source of truth for those records
+is the "workTracker" service. For reference, there are about 1 million active freelancers currently registered on Upwork.
+
+
+
